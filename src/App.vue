@@ -1,31 +1,39 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+        <router-link to="/login" tag="li" active-class="active"><a href="#" v-if="!isLogin">Login</a></router-link>
+        <router-link to="/dashboard" tag="li" active-class="active"><a href="#">Dashboard</a></router-link>
+        <li>
+          <a href="#" @click="logout">退出</a>
+        </li>
+      </ul>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script>
+import { isLogin } from './auth.js'
+
+export default {
+  updated() {
+    this.isLogin = isLogin()
+  },
+  data() {
+    return {
+      isLogin: false
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
+    }
+  }
+}
+</script>
+
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
