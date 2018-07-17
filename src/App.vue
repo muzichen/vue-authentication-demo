@@ -4,7 +4,7 @@
       <ul class="nav navbar-nav">
         <router-link to="/login" tag="li" active-class="active"><a href="#" v-if="!isLogin">Login</a></router-link>
         <router-link to="/dashboard" tag="li" active-class="active"><a href="#">Dashboard</a></router-link>
-        <li>
+        <li v-if="isLogin">
           <a href="#" @click="logout">退出</a>
         </li>
       </ul>
